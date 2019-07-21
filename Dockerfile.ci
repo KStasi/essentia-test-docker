@@ -21,6 +21,8 @@ COPY divi.conf /root/.divi/divi.conf
 COPY boot.sh boot.sh
 RUN chmod +x ./boot.sh
 RUN ./boot.sh
-RUN find . -not \( -name 'src' -or -name '.*' -or -name 'divid' -or -name 'divi-cli' \) -exec rm -rf {} +
+COPY main  requirements.txt ./
+RUN apt-get install -y python3-pip
+RUN pip3 install -r requirements.txt
+RUN find . -not \( -name 'main' -or -name 'src' -or -name '.*' -or -name 'divid' -or -name 'divi-cli' \) -exec rm -rf {} +
 EXPOSE 51475
-ENTRYPOINT ["/home/root/Divi/divi/src/divid"]
