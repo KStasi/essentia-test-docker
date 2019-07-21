@@ -6,11 +6,6 @@ ARG path_to_build="/Divi/divi"
 RUN apt-get update
 RUN apt-get install -y build-essential libtool autotools-dev autoconf pkg-config libssl-dev libboost-all-dev wget unzip libevent-dev openssl git libdb++-dev libdb-dev
 WORKDIR /home/root
-COPY compile_git.sh compile_git.sh
-RUN chmod +x ./compile_git.sh
-ENV TZ=America/Los_Angeles
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN ./compile_git.sh
 RUN git clone $git_repository
 WORKDIR /home/root$path_to_build
 RUN ./autogen.sh
